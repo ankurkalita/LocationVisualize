@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { DropZone } from "./lib";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    jsonResult: null
+  };
+
+  render() {
+    return (
+      <div style={{ width: 640, margin: "15px auto" }}>
+        <div>
+          <DropZone
+            getJson={jsonResult => {
+              this.setState({ jsonResult });
+            }}
+          >
+            <p>Add a file and see for yourself</p>
+          </DropZone>
+          {this.state.jsonResult ? (
+            <div>{JSON.stringify(this.state.jsonResult)}</div>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
